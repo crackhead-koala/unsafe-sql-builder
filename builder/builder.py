@@ -58,7 +58,7 @@ class WhereExpression:
 
 
 class SQLQueryBuilder:
-    __is_subquery: bool = False
+    is_subquery: bool = False
 
     __select_fields: List[SelectField]
     __from: str
@@ -117,7 +117,7 @@ class SQLQueryBuilder:
     @classmethod
     def subquery(cls) -> Self:
         new = cls()
-        new._SQLQueryBuilder__is_subquery = True
+        new.is_subquery = True
         return new
 
     @staticmethod
