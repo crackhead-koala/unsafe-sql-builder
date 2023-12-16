@@ -16,11 +16,12 @@ query = (
         qb.where_expr("install_time >= '2023-01-01'")
         & qb.where_expr_if(use_organic_users_only, "install_network = 'organic'")
         & qb.where_expr_if(country_to_check == 'US', "country = 'US'", "country = 'GB'")
-        & qb.where_expr(
+        & (
             qb.where_expr("platform = 'android'")
             | qb.where_expr("platform = 'ios'")
+            | qb.where_expr("platform = 'web'")
         ).bracket()
-        & qb.where_expr('last_active_time >= today() - INTERVAL 7 DAY').bracket()
+        & qb.where_expr('last_active_time >= today() - INTERVAL 7 DAY')
         & qb.where_expr(
             'user_id IN ' +
             qb.subquery()
